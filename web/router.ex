@@ -10,7 +10,7 @@ defmodule Bigben.Router do
   end
 
   pipeline :api do
-    plug :accepts, ["json"]
+    plug :accepts, ["html"]
   end
 
   scope "/", Bigben do
@@ -19,8 +19,7 @@ defmodule Bigben.Router do
     get "/", PageController, :index
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", Bigben do
-  #   pipe_through :api
-  # end
+  scope "/", Bigben do
+    post "/webhook", WebhookController, :create
+  end
 end
