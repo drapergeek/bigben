@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/drapergeek/bigben.svg?branch=master)](https://travis-ci.org/drapergeek/bigben)
+
 # Bigben
 
 To start your Phoenix app:
