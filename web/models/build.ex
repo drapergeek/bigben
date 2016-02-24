@@ -5,20 +5,15 @@ defmodule Bigben.Build do
     field :started_at, Timex.Ecto.DateTime
     field :finished_at, Timex.Ecto.DateTime
     field :run_time, :integer
-    field :branch, :string
+
+    belongs_to :branch, Bigben.Branch
 
     timestamps
   end
 
-  @required_fields ~w(started_at finished_at branch)
-  @optional_fields ~w()
+  @required_fields ~w(started_at finished_at)
+  @optional_fields ~w(branch_id)
 
-  @doc """
-  Creates a changeset based on the `model` and `params`.
-
-  If no params are provided, an invalid changeset is returned
-  with no validation performed.
-  """
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)

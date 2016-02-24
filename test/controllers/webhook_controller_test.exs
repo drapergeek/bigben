@@ -14,9 +14,9 @@ defmodule Bigben.WebhookControllerTest do
 
     assert text_response(conn, 200)
 
-    last_build = Repo.one(Build)
+    last_build = Repo.one(from b in Build, preload: [:branch])
 
-    assert last_build.branch == "master"
+    assert last_build.branch.name == "master"
     assert stringify(last_build.started_at) == "2016-02-23T01:20:00.000Z"
     assert stringify(last_build.finished_at) == "2016-02-23T01:21:00.000Z"
   end
