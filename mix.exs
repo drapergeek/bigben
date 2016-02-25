@@ -22,6 +22,7 @@ defmodule Bigben.Mixfile do
        :cowboy,
        :ex_machina,
        :gettext,
+       :httpoison,
        :logger,
        :phoenix,
        :phoenix_ecto,
@@ -41,8 +42,10 @@ defmodule Bigben.Mixfile do
   defp deps do
     [
       {:cowboy, "~> 1.0"},
+      {:envy, "~> 0.0.1"},
       {:ex_machina, "~> 0.6.1"},
       {:gettext, "~> 0.9"},
+      {:httpoison, "~> 0.8.0"},
       {:phoenix, "~> 1.1.4"},
       {:phoenix_ecto, "~> 2.0"},
       {:phoenix_html, "~> 2.4"},

@@ -5,6 +5,7 @@ defmodule Bigben.Build do
     field :started_at, Timex.Ecto.DateTime
     field :finished_at, Timex.Ecto.DateTime
     field :run_time, :integer
+    field :total_time, :integer
 
     belongs_to :branch, Bigben.Branch
 
@@ -12,7 +13,7 @@ defmodule Bigben.Build do
   end
 
   @required_fields ~w(started_at finished_at)
-  @optional_fields ~w(branch_id)
+  @optional_fields ~w(branch_id total_time)
 
   def changeset(model, params \\ :empty) do
     model
@@ -22,14 +23,14 @@ defmodule Bigben.Build do
 
   defp set_run_time(changeset) do
     if changeset.valid? do
-      run_time = Timex.Date.diff(
-        changeset.changes.started_at,
-        changeset.changes.finished_at,
-        :secs
-      )
+      run_time = calculate_time_difference(changeset.changes)
       put_change changeset, :run_time, run_time
     else
       changeset
     end
+  end
+
+  def calculate_time_difference(thing) do
+    Timex.Date.diff(thing.started_at, thing.finished_at, :secs)
   end
 end

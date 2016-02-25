@@ -3,7 +3,6 @@ defmodule Bigben.BuildStatusUpdaterTest do
 
   alias Bigben.Branch
   alias Bigben.Repo
-  alias Bigben.Build
   alias Bigben.BuildStatusUpdater
 
   import Bigben.Factory

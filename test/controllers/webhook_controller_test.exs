@@ -1,3 +1,7 @@
+defmodule Bigben.Travis.TotalTimeCalculator do
+  def calculate_total_time(_), do: 1
+end
+
 defmodule Bigben.WebhookControllerTest do
   use Bigben.ConnCase
   alias Bigben.Build
@@ -8,6 +12,7 @@ defmodule Bigben.WebhookControllerTest do
       "finished_at" => "2016-02-23T01:21:00Z",
       "branch" => "master",
       "status" => "0",
+      "id" => "21663283",
     }
 
     conn = post conn, "/webhook", params
