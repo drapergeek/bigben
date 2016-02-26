@@ -8,11 +8,13 @@ defmodule Bigben.WebhookControllerTest do
 
   test "POST /webhook with a passing build, creates an entry", %{conn: conn} do
     params = %{
-      "started_at" => "2016-02-23T01:20:00Z",
-      "finished_at" => "2016-02-23T01:21:00Z",
-      "branch" => "master",
-      "status" => "0",
-      "id" => "21663283",
+      "payload" => %{
+        "started_at" => "2016-02-23T01:20:00Z",
+        "finished_at" => "2016-02-23T01:21:00Z",
+        "branch" => "master",
+        "status" => 0,
+        "id" => "21663283",
+      },
     }
 
     conn = post conn, "/webhook", params
