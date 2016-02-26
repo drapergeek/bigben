@@ -1,5 +1,6 @@
 defmodule Bigben.Router do
   use Bigben.Web, :router
+  use Honeybadger.Plug
 
   pipeline :browser do
     plug :accepts, ["html"]
