@@ -3,16 +3,13 @@ defmodule Bigben.WebhookController do
   require Logger
 
   def create(conn, params) do
-    case get_status(params) do
+    json_params = params["payload"] |> Poison.decode!
+    case json_params["status"] do
       0 ->
-        Bigben.BuildStatusUpdater.update(params["payload"])
+        Bigben.BuildStatusUpdater.update(json_params)
+        text conn, "Success"
       _ ->
         text conn, "Failing Builds are not needed here"
     end
-  end
-
-  defp get_status(params) do
-    payload = params["payload"] |> Poison.decode!
-    IO.inspect payload["status"]
   end
 end
