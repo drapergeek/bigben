@@ -1,6 +1,6 @@
 defmodule Bigben.Travis.TotalTimeCalculator do
   import HTTPoison
-  import Bigben.Travis.UrlBuilder
+  alias Bigben.Travis.UrlBuilder
 
   def calculate_total_time(travis_id) do
     auth_token = Bigben.Travis.ApiToken.get_token
@@ -11,7 +11,7 @@ defmodule Bigben.Travis.TotalTimeCalculator do
   def find_jobs(travis_build_id, auth_token) do
     start
     travis_build_id
-    |> build_url
+    |> UrlBuilder.build_url
     |> get(travis_headers(auth_token))
     |> extract_jobs
   end
@@ -49,7 +49,7 @@ defmodule Bigben.Travis.TotalTimeCalculator do
       { "Content-Type", "application/json" },
       { "Accept", "application/vnd.travis-ci.2+json" },
       { "User-Agent", "MyClient/1.0.0" },
-      { "Host", "api.travis-ci.com" },
+      { "Host", UrlBuilder.host },
       { "Authorization", "token #{auth_token}" },
     ]
   end

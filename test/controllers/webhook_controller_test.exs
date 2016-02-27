@@ -7,15 +7,13 @@ defmodule Bigben.WebhookControllerTest do
   alias Bigben.Build
 
   test "POST /webhook with a passing build, creates an entry", %{conn: conn} do
-    params = %{
-      "payload" => %{
-        "started_at" => "2016-02-23T01:20:00Z",
-        "finished_at" => "2016-02-23T01:21:00Z",
-        "branch" => "master",
-        "status" => 0,
-        "id" => "21663283",
-      },
-    }
+    payload = ~s/{
+      "status":0,
+      "started_at":"2016-02-23T01:20:00Z",
+      "finished_at":"2016-02-23T01:21:00Z",
+      "branch":"master"
+    }/
+    params = %{ "payload" => payload }
 
     conn = post conn, "/webhook", params
 
@@ -29,12 +27,13 @@ defmodule Bigben.WebhookControllerTest do
   end
 
   test "POST /webhook with a failing build, does not create an entry", %{conn: conn} do
-    params = %{
-      "started_at" => "1234",
-      "finished_at" => "1234",
-      "branch" => "master",
-      "status" => "1",
-    }
+    payload = ~s/{
+      "status":1,
+      "started_at":"2016-02-23T01:20:00Z",
+      "finished_at":"2016-02-23T01:21:00Z",
+      "branch":"master"
+    }/
+    params = %{ "payload" => payload }
 
     conn = post conn, "/webhook", params
 

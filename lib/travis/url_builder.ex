@@ -4,7 +4,11 @@ defmodule Bigben.Travis.UrlBuilder do
   end
 
   def build_url(id) do
-    travis_api_url <> "/repos/" <> repo <> "/builds/" <> id
+    "#{travis_api_url}/repos/#{repo}/builds/#{id}"
+  end
+
+  def host do
+    System.get_env("TRAVIS_HOST")
   end
 
   def travis_api_url do
