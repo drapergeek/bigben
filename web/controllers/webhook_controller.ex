@@ -2,12 +2,17 @@ defmodule Bigben.WebhookController do
   use Bigben.Web, :controller
   require Logger
 
-  def create(conn, params = %{ "payload" => %{"status" => 0 }}) do
-    Bigben.BuildStatusUpdater.update(params["payload"])
-    text conn, "Success"
+  def create(conn, params) do
+    case get_status(params) do
+      0 ->
+        Bigben.BuildStatusUpdater.update(params["payload"])
+      _ ->
+        text conn, "Failing Builds are not needed here"
+    end
   end
 
-  def create(conn, params) do
-    text conn, "Failing Builds are not needed here"
+  defp get_status(params) do
+    payload = params["payload"] |> Poison.decode!
+    IO.inspect payload["status"]
   end
 end
