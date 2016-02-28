@@ -7,10 +7,13 @@ defmodule Bigben.WebhookControllerTest do
   alias Bigben.Build
 
   test "POST /webhook with a passing build, creates an entry", %{conn: conn} do
-  payload = ~s/{"id":112129326,"repository":{"id":1294851,"name":"findit"},"number":"84","status":0,"result":0,"status_message":"Passed","result_message":"Passed","started_at":"2016-02-23T01:20:00Z","finished_at":"2016-02-23T01:21:00Z","duration":60,"branch":"master"}/
-    params = %{
-      "payload" => payload
-    }
+    payload = ~s/{
+      "status":0,
+      "started_at":"2016-02-23T01:20:00Z",
+      "finished_at":"2016-02-23T01:21:00Z",
+      "branch":"master"
+    }/
+    params = %{ "payload" => payload }
 
     conn = post conn, "/webhook", params
 
@@ -24,10 +27,13 @@ defmodule Bigben.WebhookControllerTest do
   end
 
   test "POST /webhook with a failing build, does not create an entry", %{conn: conn} do
-  payload = ~s/{"id":112129326,"repository":{"id":1294851,"name":"findit"},"number":"84","status":1,"result":0,"status_message":"Passed","result_message":"Passed","started_at":"2016-02-23T01:20:00Z","finished_at":"2016-02-23T01:21:00Z","duration":60,"branch":"master"}/
-    params = %{
-      "payload" => payload
-    }
+    payload = ~s/{
+      "status":1,
+      "started_at":"2016-02-23T01:20:00Z",
+      "finished_at":"2016-02-23T01:21:00Z",
+      "branch":"master"
+    }/
+    params = %{ "payload" => payload }
 
     conn = post conn, "/webhook", params
 
